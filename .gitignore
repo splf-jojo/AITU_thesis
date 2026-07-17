@@ -1,17 +1,17 @@
-# Python runtime files
+# Backend runtime files
 __pycache__/
 *.py[cod]
-.venv/
-venv/
-media/
+backend/.venv/
+backend/venv/
+backend/media/
 
-# Large model artifact; provision it locally next to gesture_model.py.
-mvit32-2.pt
+# Large model artifact; provision it locally next to backend/gesture_model.py.
+backend/mvit32-2.pt
 
 # Frontend build artifacts
-node_modules/
-dist/
-dist-ssr/
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
 
 # Local settings and exported archives
 .env
