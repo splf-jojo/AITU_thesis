@@ -90,8 +90,9 @@ async def predict(
     unique_fname = _unique_name(file.filename)
     saved_path = MEDIA_DIR / unique_fname
 
-    # сохраняем через NamedTemporaryFile, чтобы не держать весь файл в памяти
-    with NamedTemporaryFile(delete=False) as tmp:
+    # В Docker media может быть отдельным volume. Создаём временный файл в
+    # той же файловой системе, чтобы os.replace оставался атомарным.
+    with NamedTemporaryFile(dir=MEDIA_DIR, delete=False) as tmp:
         tmp.write(await file.read())
         tmp.flush()
 

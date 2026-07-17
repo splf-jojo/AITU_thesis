@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import asyncpg, uvicorn
@@ -26,12 +27,16 @@ app.include_router(audio_router)          # ← сначала кастомны�
 app.mount("/media", StaticFiles(directory=str(MEDIA_DIR)), name="media")
 
 # ───── CORS ─────────────────────────────────────────────────────────
+cors_origins = [
+    "http://localhost:3000", "http://localhost:5173",
+    "http://127.0.0.1:3000", "http://127.0.0.1:5173",
+]
+if frontend_origin := os.getenv("FRONTEND_ORIGIN"):
+    cors_origins.append(frontend_origin)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000", "http://localhost:5173",
-        "http://127.0.0.1:3000", "http://127.0.0.1:5173",
-    ],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,11 +46,11 @@ app.add_middleware(
 @app.on_event("startup")
 async def open_pool():
     pool = await asyncpg.create_pool(
-        host="localhost",
-        port=5432,
-        user="postgres",
-        password="123",
-        database="diploma",
+        host=os.getenv("POSTGRES_HOST", "localhost"),
+        port=int(os.getenv("POSTGRES_PORT", "5432")),
+        user=os.getenv("POSTGRES_USER", "postgres"),
+        password=os.getenv("POSTGRES_PASSWORD", "123"),
+        database=os.getenv("POSTGRES_DB", "diploma"),
     )
     app.state.db = pool
     await init_users_table(pool)

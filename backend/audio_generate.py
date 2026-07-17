@@ -8,7 +8,8 @@ TTS_MODEL, _ = torch.hub.load(
     repo_or_dir='snakers4/silero-models',
     model='silero_tts',
     language='ru',
-    speaker='v4_ru'      # или 'aidar' (м)
+    speaker='v4_ru',     # или 'aidar' (м)
+    trust_repo=True,
 )
 
 AUDIO_DIR = Path(__file__).parent / 'media' / 'audio'
