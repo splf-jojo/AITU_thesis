@@ -1,2 +1,23 @@
-# Игнорировать файл модели
+# Python runtime files
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+media/
+
+# Large model artifact; provision it locally next to gesture_model.py.
 mvit32-2.pt
+
+# Frontend build artifacts
+node_modules/
+dist/
+dist-ssr/
+
+# Local settings and exported archives
+.env
+.env.*
+!.env.example
+*.zip
+
+# OS files
+.DS_Store

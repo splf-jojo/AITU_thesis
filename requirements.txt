@@ -1,7 +1,12 @@
+fastapi
+uvicorn[standard]
+asyncpg
+python-jose[cryptography]   # JWT
 opencv-python
-requests
-python-multipart
-fastapi 
-uvicorn
 torch
 numpy
+email-validator
+python-multipart
+soundfile
+omegaconf
+pydub
