@@ -1,7 +1,7 @@
 // src/components/Message/PredictionMobile.jsx
 import { useCallback } from "react";
 
-const API = "http://localhost:8000";
+const API = import.meta.env.VITE_API ?? "http://localhost:8000";
 
 export default function PredictionMobile({ items = [] }) {
     /** проигрываем озвучку жеста */

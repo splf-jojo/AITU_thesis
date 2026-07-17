@@ -14,7 +14,7 @@ function isExpired(t) {
 }
 
 const http = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: import.meta.env.VITE_API ?? "http://localhost:8000",
     timeout: 30000,
 });
 

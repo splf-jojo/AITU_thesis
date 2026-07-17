@@ -1,7 +1,8 @@
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthCtx } from "../context/AuthContext";
-import http from "../lib/http"; // ← axios-инстанс
+import http from "../lib/http";
+import toErrorMsg from "../helpers/errorMsg";
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ export default function Register() {
             login(data.access_token);
             nav("/");
         } catch (e) {
-            setErr(e.response?.data?.detail || e.message);
+            setErr(toErrorMsg(e.response?.data?.detail || e.message));
         }
     };
 
